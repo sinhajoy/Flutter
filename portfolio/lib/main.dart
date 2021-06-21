@@ -30,7 +30,42 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               ),
-              Card()
+              Card(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.email,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  title: Text(
+                    'contactsinhajoy@gmail.com',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.web_rounded,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  title: Text(
+                    'www.joysinha.me',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  title: Text(
+                    'Alamnagar,Budge Budge,Kolkata-70037',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
+              )
             ],
           ),
         ),
