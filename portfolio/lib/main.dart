@@ -17,9 +17,16 @@ class MyApp extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 50.0,
+                backgroundImage: AssetImage('images/myimg.jpg'),
               ),
-              Text("This is My App"),
-              Text("MY NAME IS JOY"),
+              Text(
+                'Joy Sinha',
+                style: TextStyle(fontFamily: 'Sacramento', fontSize: 40.0),
+              ),
+              Text(
+                'Software Developer',
+                style: TextStyle(fontSize: 20.0, fontFamily: 'Tangerine'),
+              ),
               Card(
                 child: ListTile(
                   leading: Icon(
