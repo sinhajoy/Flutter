@@ -15,7 +15,9 @@ class MyApp extends StatelessWidget {
         body: Container(
           child: Column(
             children: [
-              CircleAvatar(),
+              CircleAvatar(
+                radius: 50.0,
+              ),
               Text("This is My App"),
               Text("MY NAME IS JOY"),
               Card(
