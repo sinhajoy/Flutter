@@ -1,83 +1,100 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
+class DiscData {
+  static final _rng = Random();
+
+  final double size;
+  final Color color;
+  final Alignment alignment;
+
+  DiscData()
+      : size = _rng.nextDouble() * 40 + 10,
+        color = Color.fromARGB(
+          _rng.nextInt(200),
+          _rng.nextInt(255),
+          _rng.nextInt(255),
+          _rng.nextInt(255),
+        ),
+        alignment = Alignment(
+          _rng.nextDouble() * 2 - 1,
+          _rng.nextDouble() * 2 - 1,
+        );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void main() async {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Container(
+          color: Color(0xFF15202D),
+          child: SizedBox.expand(
+            child: VariousDiscs(50),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+class VariousDiscs extends StatefulWidget {
+  final int numberOfDiscs;
+
+  VariousDiscs(this.numberOfDiscs);
+
+  @override
+  _VariousDiscsState createState() => _VariousDiscsState();
+}
+
+class _VariousDiscsState extends State<VariousDiscs> {
+  final _discs = <DiscData>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _makeDiscs();
+  }
+
+  void _makeDiscs() {
+    _discs.clear();
+    for (int i = 0; i < widget.numberOfDiscs; i++) {
+      _discs.add(DiscData());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueAccent,
-        body: Container(
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 50.0,
-                backgroundImage: AssetImage('images/myimg.jpg'),
-              ),
-              Text(
-                'Joy Sinha',
-                style: TextStyle(fontFamily: 'Sacramento', fontSize: 40.0),
-              ),
-              Text(
-                'Software Developer',
-                style: TextStyle(fontSize: 20.0, fontFamily: 'Tangerine'),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.phone,
-                    color: Colors.lightBlueAccent,
-                  ),
-                  title: Text(
-                    '+91 8777 817725',
-                    style: TextStyle(),
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.lightBlueAccent,
-                  ),
-                  title: Text(
-                    'contactsinhajoy@gmail.com',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.web_rounded,
-                    color: Colors.lightBlueAccent,
-                  ),
-                  title: Text(
-                    'www.joysinha.me',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(
-                    Icons.home,
-                    color: Colors.lightBlueAccent,
-                  ),
-                  title: Text(
-                    'Alamnagar,Budge Budge,Kolkata-70037',
-                    style: TextStyle(color: Colors.blue),
-                  ),
-                ),
-              )
-            ],
+    return GestureDetector(
+      onTap: () => setState(() {
+        _makeDiscs();
+      }),
+      child: Stack(
+        children: [
+          Center(
+            child: Text(
+              'Joy',
+              style: TextStyle(color: Colors.white, fontSize: 50),
+            ),
           ),
-        ),
+          for (final disc in _discs)
+            Positioned.fill(
+              child: AnimatedAlign(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                alignment: disc.alignment,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  decoration: BoxDecoration(
+                    color: disc.color,
+                    shape: BoxShape.circle,
+                  ),
+                  height: disc.size,
+                  width: disc.size,
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
